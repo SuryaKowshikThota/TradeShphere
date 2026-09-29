@@ -1,0 +1,155 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #0f172a, #1e3a8a);
+}
+
+.login-container {
+  width: 100%;
+  padding: 20px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  margin: auto;
+  padding: 40px 35px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  font-size: 25px;
+  font-weight: bold;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #2563eb, #16a34a);
+}
+
+.logo h1 {
+  color: #0f172a;
+  font-size: 26px;
+}
+
+.subtitle {
+  margin: 12px 0 30px;
+  color: #64748b;
+  text-align: center;
+  font-size: 14px;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #334155;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  outline: none;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+.input-group input:focus {
+  border-color: #2563eb;
+}
+
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.form-options label {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.form-options a,
+.register-text a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.form-options a:hover,
+.register-text a:hover {
+  text-decoration: underline;
+}
+
+.login-button {
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 8px;
+  color: #ffffff;
+  background-color: #2563eb;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login-button:hover {
+  background-color: #1d4ed8;
+}
+
+#message {
+  min-height: 20px;
+  margin-top: 15px;
+  color: #dc2626;
+  text-align: center;
+  font-size: 13px;
+}
+
+.register-text {
+  margin-top: 25px;
+  color: #64748b;
+  text-align: center;
+  font-size: 14px;
+}
+
+@media (max-width: 480px) {
+  .login-card {
+    padding: 30px 22px;
+  }
+
+  .logo h1 {
+    font-size: 23px;
+  }
+}

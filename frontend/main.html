@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>TradeSphere</title>
+    <style>
+       .header{
+        background-color: greenyellow;
+        display:grid;
+        
+       }
+       h1{
+        align-items:center;
+        justify-content: center;
+        display:flex;
+       }
+    </style>
+</head>
+<body>
+    <h1 >Sign-In Account</h1>
+    <div class="header">
+        <div class="user">
+            Phone Number:<input type="text" id="name" placeholder="Enter Phone number or Email address">
+        </div>
+        <div class="pass">
+        Password:<input type="password" id="pass" placeholder="Enter Password">
+        </div>
+        <button onclick="signin()">Sign-in</button>
+        </div>
+        <div>Create an account</div>
+        <div id="message"></div>
+    </div>
+    <script>
+        function signin(){
+           let name = document.getElementById("name").value;
+           let pass =document.getElementById("pass").value;
+           if(name==="kowshik"&&pass==="Koushik@241"){
+            localStorage.setItem("username",name);
+            document.getElementById("message").innerText="Login successful " + name;
+           }else{
+            document.getElementById("message").innerText="Invalid Username or Password";
+           }
+        }
+    </script>
+</body>
+</html>
