@@ -9,7 +9,8 @@ const stocks = [
   { symbol: "NVDA", name: "NVIDIA Corporation", price: 11950 },
   { symbol: "AMZN", name: "Amazon.com Inc.", price: 15320 },
   { symbol: "GOOGL", name: "Alphabet Inc.", price: 13890 },
-  { symbol: "META", name: "Meta Platforms Inc.", price: 42150 }
+  { symbol: "META", name: "Meta Platforms Inc.", price: 42150 },
+  { symbol: "GOLD" , name:"Gold Inc" , price : 17500}
 ];
 stocks.forEach(s => { s.open = s.price; });
 
@@ -18,7 +19,8 @@ const find = symbol => stocks.find(s => s.symbol === symbol);
 const profitClass = n => (n > 0 ? "profit" : n < 0 ? "loss" : "");
 const sign = n => (n > 0 ? "+" : "");
 
-function row(cells) {
+function row(cells) 
+{
   const tr = document.createElement("tr");
   tr.innerHTML = cells;
   return tr;

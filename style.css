@@ -1,16 +1,3 @@
-:root {
-  --navy: #0b1a4a;
-  --blue: #2563eb;
-  --blue-dark: #1d4ed8;
-  --green: #16a34a;
-  --red: #dc2626;
-  --bg: #f1f5f9;
-  --card: #fff;
-  --line: #e2e8f0;
-  --text: #172033;
-  --muted: #64748b;
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -24,8 +11,8 @@ html {
 body {
   min-height: 100vh;
   font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
+  background: #f1f5f9;
+  color: #172033;
   line-height: 1.45;
 }
 
@@ -36,7 +23,7 @@ body {
 small {
   display: block;
   margin-top: 2px;
-  color: var(--muted);
+  color: #64748b;
   font-size: 12px;
   font-weight: 400;
 }
@@ -63,16 +50,16 @@ small {
 
 .button-blue {
   color: #fff;
-  background: var(--blue);
+  background: #2563eb;
 }
 
 .button-blue:hover:not(:disabled) {
-  background: var(--blue-dark);
+  background: #1d4ed8;
 }
 
 .button-red {
   color: #fff;
-  background: var(--red);
+  background: #dc2626;
 }
 
 .button-red:hover {
@@ -80,24 +67,24 @@ small {
 }
 
 .button-outline {
-  color: var(--text);
+  color: #172033;
   background: #fff;
   border-color: #cbd5e1;
 }
 
 .button-outline:hover {
-  background: var(--bg);
+  background: #f1f5f9;
 }
 
 .button-buy {
   color: #fff;
-  background: var(--green);
+  background: #16a34a;
 }
 
 .button-sell {
-  color: var(--red);
+  color: #dc2626;
   background: #fff;
-  border-color: var(--red);
+  border-color: #dc2626;
 }
 
 .button-sell:hover {
@@ -115,7 +102,7 @@ input {
 
 input:focus {
   outline: none;
-  border-color: var(--blue);
+  border-color: #2563eb;
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
@@ -130,7 +117,7 @@ label {
 .error-message {
   min-height: 20px;
   margin-top: 10px;
-  color: var(--red);
+  color: #dc2626;
   font-size: 13px;
   text-align: center;
 }
@@ -140,7 +127,7 @@ label {
   margin: 6px auto 0;
   border: 0;
   background: none;
-  color: var(--blue);
+  color: #2563eb;
   font: inherit;
   font-size: 13px;
   cursor: pointer;
@@ -206,7 +193,7 @@ label {
   display: flex;
   gap: 4px;
   padding: 4px;
-  background: var(--bg);
+  background: #f1f5f9;
   border-radius: 10px;
 }
 
@@ -219,13 +206,13 @@ label {
   font: inherit;
   font-size: 14px;
   font-weight: 600;
-  color: var(--muted);
+  color: #64748b;
   cursor: pointer;
 }
 
 .form-tab.active {
   background: #fff;
-  color: var(--navy);
+  color: #0b1a4a;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
 }
 
@@ -236,7 +223,7 @@ label {
   gap: 12px;
   padding: 8px 32px;
   background: #fff;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid #e2e8f0;
 }
 
 .header-logo {
@@ -271,11 +258,11 @@ label {
 
 .page-heading h1 {
   font-size: 28px;
-  color: var(--navy);
+  color: #0b1a4a;
 }
 
 .page-heading p {
-  color: var(--muted);
+  color: #64748b;
 }
 
 .mode-badge {
@@ -304,12 +291,12 @@ label {
 }
 
 .menu a:hover {
-  background: var(--bg);
+  background: #f1f5f9;
 }
 
 .menu a.active {
   background: #e0e7ff;
-  color: var(--navy);
+  color: #0b1a4a;
 }
 
 .heading-buttons {
@@ -326,8 +313,8 @@ label {
 
 .summary-card,
 .dashboard-section {
-  background: var(--card);
-  border: 1px solid var(--line);
+  background: #fff;
+  border: 1px solid #e2e8f0;
   border-radius: 12px;
 }
 
@@ -336,14 +323,14 @@ label {
 }
 
 .summary-card p {
-  color: var(--muted);
+  color: #64748b;
   font-size: 13px;
 }
 
 .summary-card h2 {
   margin: 6px 0 4px;
   font-size: 24px;
-  color: var(--navy);
+  color: #0b1a4a;
 }
 
 .summary-card small {
@@ -365,7 +352,7 @@ label {
 
 .section-heading h2 {
   font-size: 18px;
-  color: var(--navy);
+  color: #0b1a4a;
 }
 
 .section-heading input {
@@ -385,9 +372,9 @@ table {
 
 th {
   padding: 10px 8px;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid #e2e8f0;
   text-align: left;
-  color: var(--muted);
+  color: #64748b;
   font-size: 13px;
   font-weight: 600;
   white-space: nowrap;
@@ -415,16 +402,16 @@ td .button {
 
 .empty-message {
   padding: 22px 8px;
-  color: var(--muted);
+  color: #64748b;
   text-align: center;
 }
 
 .profit {
-  color: var(--green);
+  color: #16a34a;
 }
 
 .loss {
-  color: var(--red);
+  color: #dc2626;
 }
 
 .trade-type {
@@ -459,18 +446,18 @@ dialog::backdrop {
 
 dialog h3 {
   font-size: 20px;
-  color: var(--navy);
+  color: #0b1a4a;
 }
 
 dialog p {
   margin-top: 4px;
-  color: var(--muted);
+  color: #64748b;
   font-size: 14px;
 }
 
 .dialog-total {
   margin-top: 14px;
-  color: var(--text);
+  color: #172033;
   font-size: 15px;
 }
 
@@ -488,7 +475,7 @@ dialog p {
   transform: translate(-50%, 30px);
   padding: 12px 18px;
   border-radius: 10px;
-  background: var(--navy);
+  background: #0b1a4a;
   color: #fff;
   font-size: 14px;
   opacity: 0;
@@ -502,7 +489,7 @@ dialog p {
 }
 
 .popup-message.error {
-  background: var(--red);
+  background: #dc2626;
 }
 
 .learn-layout {
@@ -517,7 +504,7 @@ dialog p {
 }
 
 details {
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid #e2e8f0;
 }
 
 details:last-child {
@@ -528,7 +515,7 @@ summary {
   padding: 14px 4px;
   font-weight: 600;
   cursor: pointer;
-  color: var(--navy);
+  color: #0b1a4a;
 }
 
 details p {
@@ -568,12 +555,12 @@ details p {
 }
 
 .task-list li.completed .task-circle {
-  background: var(--green);
-  border-color: var(--green);
+  background: #16a34a;
+  border-color: #16a34a;
 }
 
 .task-list li.completed span:last-child {
-  color: var(--muted);
+  color: #64748b;
   text-decoration: line-through;
 }
 
@@ -602,17 +589,17 @@ details p {
 }
 
 .quiz-question button:hover:not(:disabled) {
-  background: var(--bg);
+  background: #f1f5f9;
 }
 
 .quiz-question button.correct {
   background: #dcfce7;
-  border-color: var(--green);
+  border-color: #16a34a;
 }
 
 .quiz-question button.incorrect {
   background: #fee2e2;
-  border-color: var(--red);
+  border-color: #dc2626;
 }
 
 .quiz-question small {
@@ -621,7 +608,7 @@ details p {
 
 .progress-text {
   margin-bottom: 8px;
-  color: var(--muted);
+  color: #64748b;
   font-size: 13px;
 }
 
