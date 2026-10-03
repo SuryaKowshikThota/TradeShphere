@@ -20,8 +20,10 @@ TradeSphere is a web-based virtual trading platform that allows users to explore
 TradeSphere/
 ├── index.html
 ├── dashboard.html
+├── learn.html
+├── style.css
 ├── auth.js
 ├── dashboard.js
 ├── store.js
-├── style.css
+├── learn.js
 └── Logo.jpg
