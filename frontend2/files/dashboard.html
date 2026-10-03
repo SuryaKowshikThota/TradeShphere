@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TradeSphere – Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <img src="Logo.jpg" alt="TradeSphere" class="topbar-logo">
+    <div class="topbar-right">
+      <span id="welcomeUser"></span>
+      <button class="btn btn-ghost" id="resetButton">Reset account</button>
+      <button class="btn btn-danger" id="logoutButton">Log out</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="page-head">
+      <div>
+        <h1>Dashboard</h1>
+        <p>Prices update every few seconds. Trades use virtual cash only.</p>
+      </div>
+      <span class="badge">Practice mode</span>
+    </div>
+
+    <section class="cards">
+      <div class="card"><p>Portfolio value</p><h2 id="portfolioValue">₹0</h2><small id="portfolioNote">Cash + holdings</small></div>
+      <div class="card"><p>Available cash</p><h2 id="cashBalance">₹0</h2><small>Ready to invest</small></div>
+      <div class="card"><p>Invested value</p><h2 id="investedValue">₹0</h2><small id="stockCount">0 positions</small></div>
+      <div class="card"><p>Total profit / loss</p><h2 id="totalPL">₹0</h2><small id="totalPLPercent">0%</small></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Market</h2>
+        <input type="search" id="stockSearch" placeholder="Search by name or symbol" aria-label="Search stocks">
+      </div>
+      <div class="table-scroll"><table>
+        <thead><tr><th>Stock</th><th class="num">Price</th><th class="num">Today</th><th class="num">Trade</th></tr></thead>
+        <tbody id="stockList"></tbody>
+      </table></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>My holdings</h2></div>
+      <div class="table-scroll"><table>
+        <thead><tr><th>Stock</th><th class="num">Qty</th><th class="num">Avg cost</th><th class="num">Price</th><th class="num">Value</th><th class="num">Profit / loss</th></tr></thead>
+        <tbody id="holdingsList"></tbody>
+      </table></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Transaction history</h2></div>
+      <div class="table-scroll"><table>
+        <thead><tr><th>Date</th><th>Type</th><th>Stock</th><th class="num">Qty</th><th class="num">Price</th><th class="num">Total</th></tr></thead>
+        <tbody id="transactionList"></tbody>
+      </table></div>
+    </section>
+  </main>
+
+  <dialog id="tradeModal">
+    <form method="dialog" id="tradeForm">
+      <h3 id="modalTitle"></h3>
+      <p id="modalInfo"></p>
+      <label for="qtyInput">Quantity</label>
+      <input type="number" id="qtyInput" min="1" step="1" value="1" required>
+      <p class="modal-total">Total: <strong id="modalTotal"></strong></p>
+      <p class="form-message" id="modalError" role="alert"></p>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="cancelTrade">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="confirmTrade">Confirm</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status"></div>
+
+  <script src="store.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>

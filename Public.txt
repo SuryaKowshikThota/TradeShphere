@@ -1,0 +1,23 @@
+Public:
+  /                    Home
+  /login               Login
+  /register            Registration
+
+User:
+  /dashboard           Summary dashboard
+  /market              Stock listing
+  /stocks/:symbol      Stock details and price chart
+  /portfolio           Holdings and performance
+  /orders              Transaction history
+  /watchlist           Saved stocks
+  /learning            Tutorials and quizzes
+  /competitions        Mock competitions
+  /news                Market news
+  /profile             User settings
+
+Admin:
+  /admin
+  /admin/users
+  /admin/stocks
+  /admin/learning
+  /admin/competitions
