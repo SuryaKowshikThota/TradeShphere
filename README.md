@@ -6,7 +6,7 @@ TradeSphere is a web-based virtual trading platform that allows users to explore
 
 ## 🚀 Live Website
 
-[Open TradeSphere](https://SuryaKowshikThota.github.io/TradeSphere/)
+[Open TradeSphere](https://suryakowshikthota.github.io/TradeShphere/)
 
 ## 🛠️ Technologies Used
 
