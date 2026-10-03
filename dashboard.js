@@ -13,9 +13,9 @@ const stocks = [
 ];
 stocks.forEach(s => { s.open = s.price; });
 
-const $ = id => document.getElementById(id);
+const getById = id => document.getElementById(id);
 const find = symbol => stocks.find(s => s.symbol === symbol);
-const plClass = n => (n > 0 ? "up" : n < 0 ? "down" : "");
+const profitClass = n => (n > 0 ? "profit" : n < 0 ? "loss" : "");
 const sign = n => (n > 0 ? "+" : "");
 
 function row(cells) {
@@ -34,34 +34,34 @@ function renderSummary() {
   const pl = invested - cost;
   const plPct = cost ? (pl / cost) * 100 : 0;
 
-  $("welcomeUser").textContent = "Welcome, " + user.name;
-  $("portfolioValue").textContent = money(user.cashBalance + invested);
-  $("cashBalance").textContent = money(user.cashBalance);
-  $("investedValue").textContent = money(invested);
-  $("stockCount").textContent = user.holdings.length + (user.holdings.length === 1 ? " position" : " positions");
-  $("totalPL").textContent = sign(pl) + money(pl);
-  $("totalPL").className = plClass(pl);
-  $("totalPLPercent").textContent = sign(plPct) + plPct.toFixed(2) + "%";
+  getById("welcomeUser").textContent = "Welcome, " + user.name;
+  getById("portfolioValue").textContent = money(user.cashBalance + invested);
+  getById("cashBalance").textContent = money(user.cashBalance);
+  getById("investedValue").textContent = money(invested);
+  getById("stockCount").textContent = user.holdings.length + (user.holdings.length === 1 ? " position" : " positions");
+  getById("totalProfitLoss").textContent = sign(pl) + money(pl);
+  getById("totalProfitLoss").className = profitClass(pl);
+  getById("totalProfitLossPercent").textContent = sign(plPct) + plPct.toFixed(2) + "%";
 }
 
 function renderStocks() {
-  const q = $("stockSearch").value.trim().toLowerCase();
-  const body = $("stockList");
+  const q = getById("stockSearch").value.trim().toLowerCase();
+  const body = getById("stockList");
   body.innerHTML = "";
   const list = stocks.filter(s => s.name.toLowerCase().includes(q) || s.symbol.toLowerCase().includes(q));
   if (!list.length) {
-    body.innerHTML = `<tr><td colspan="4" class="empty">No stocks match "${q.replace(/[<>&"]/g, "")}".</td></tr>`;
+    body.innerHTML = `<tr><td colspan="4" class="empty-message">No stocks match "${q.replace(/[<>&"]/g, "")}".</td></tr>`;
     return;
   }
   list.forEach(s => {
     const change = ((s.price - s.open) / s.open) * 100;
     const tr = row(`
       <td><strong>${s.name}</strong><small>${s.symbol}</small></td>
-      <td class="num">${money(s.price)}</td>
-      <td class="num ${plClass(change)}">${sign(change)}${change.toFixed(2)}%</td>
-      <td class="num">
-        <button class="btn btn-buy" data-act="BUY">Buy</button>
-        <button class="btn btn-sell" data-act="SELL">Sell</button>
+      <td class="align-right">${money(s.price)}</td>
+      <td class="align-right ${profitClass(change)}">${sign(change)}${change.toFixed(2)}%</td>
+      <td class="align-right">
+        <button class="button button-buy" data-act="BUY">Buy</button>
+        <button class="button button-sell" data-act="SELL">Sell</button>
       </td>`);
     tr.querySelectorAll("button").forEach(b =>
       b.addEventListener("click", () => openTrade(b.dataset.act, s)));
@@ -70,10 +70,10 @@ function renderStocks() {
 }
 
 function renderHoldings() {
-  const body = $("holdingsList");
+  const body = getById("holdingsList");
   body.innerHTML = "";
   if (!user.holdings.length) {
-    body.innerHTML = `<tr><td colspan="6" class="empty">You don't own any stocks yet. Pick one from the market above and press Buy.</td></tr>`;
+    body.innerHTML = `<tr><td colspan="6" class="empty-message">You don't own any stocks yet. Pick one from the market above and press Buy.</td></tr>`;
     return;
   }
   user.holdings.forEach(h => {
@@ -83,36 +83,36 @@ function renderHoldings() {
     const pct = (pl / (h.avgPrice * h.quantity)) * 100;
     body.appendChild(row(`
       <td><strong>${s.name}</strong><small>${s.symbol}</small></td>
-      <td class="num">${h.quantity}</td>
-      <td class="num">${money(h.avgPrice)}</td>
-      <td class="num">${money(s.price)}</td>
-      <td class="num">${money(value)}</td>
-      <td class="num ${plClass(pl)}">${sign(pl)}${money(pl)}<small>${sign(pct)}${pct.toFixed(2)}%</small></td>`));
+      <td class="align-right">${h.quantity}</td>
+      <td class="align-right">${money(h.avgPrice)}</td>
+      <td class="align-right">${money(s.price)}</td>
+      <td class="align-right">${money(value)}</td>
+      <td class="align-right ${profitClass(pl)}">${sign(pl)}${money(pl)}<small>${sign(pct)}${pct.toFixed(2)}%</small></td>`));
   });
 }
 
 function renderTransactions() {
-  const body = $("transactionList");
+  const body = getById("transactionList");
   body.innerHTML = "";
   if (!user.transactions.length) {
-    body.innerHTML = `<tr><td colspan="6" class="empty">No transactions yet.</td></tr>`;
+    body.innerHTML = `<tr><td colspan="6" class="empty-message">No transactions yet.</td></tr>`;
     return;
   }
   user.transactions.slice().reverse().forEach(t => {
     body.appendChild(row(`
       <td>${new Date(t.date).toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" })}</td>
-      <td><span class="tag ${t.type === "BUY" ? "tag-buy" : "tag-sell"}">${t.type}</span></td>
+      <td><span class="trade-type ${t.type ==="BUY" ? "type-buy" : "type-sell"}">${t.type}</span></td>
       <td>${t.symbol}</td>
-      <td class="num">${t.quantity}</td>
-      <td class="num">${money(t.price)}</td>
-      <td class="num">${money(t.total)}</td>`));
+      <td class="align-right">${t.quantity}</td>
+      <td class="align-right">${money(t.price)}</td>
+      <td class="align-right">${money(t.total)}</td>`));
   });
 }
 
 function renderAll() { renderSummary(); renderStocks(); renderHoldings(); renderTransactions(); }
 
 /* ---------- Trading ---------- */
-const modal = $("tradeModal");
+const tradeDialog = getById("tradeDialog");
 let trade = null;
 
 function maxQuantity() {
@@ -121,36 +121,36 @@ function maxQuantity() {
   return h ? h.quantity : 0;
 }
 
-function updateModal() {
-  const qty = Number($("qtyInput").value);
+function updateDialog() {
+  const qty = Number(getById("quantityInput").value);
   const valid = Number.isInteger(qty) && qty > 0;
-  $("modalTotal").textContent = money(valid ? qty * trade.stock.price : 0);
+  getById("dialogTotal").textContent = money(valid ? qty * trade.stock.price : 0);
   let error = "";
   if (!valid) error = "Enter a whole number of 1 or more.";
   else if (qty > maxQuantity()) {
     error = trade.type === "BUY" ? "Not enough virtual cash for that quantity." : "You don't own that many shares.";
   }
-  $("modalError").textContent = error;
-  $("confirmTrade").disabled = Boolean(error);
+  getById("dialogError").textContent = error;
+  getById("confirmTrade").disabled = Boolean(error);
 }
 
 function openTrade(type, stock) {
   trade = { type, stock };
   if (type === "SELL" && maxQuantity() === 0) {
-    toast(`You don't own any ${stock.symbol} shares.`, true);
+    showMessage(`You don't own any ${stock.symbol} shares.`, true);
     return;
   }
-  $("modalTitle").textContent = `${type === "BUY" ? "Buy" : "Sell"} ${stock.symbol}`;
-  $("modalInfo").textContent = `${stock.name} at ${money(stock.price)} · You can ${type === "BUY" ? "afford" : "sell"} up to ${maxQuantity()}`;
-  $("confirmTrade").textContent = type === "BUY" ? "Buy shares" : "Sell shares";
-  $("qtyInput").value = 1;
-  updateModal();
-  modal.showModal();
-  $("qtyInput").select();
+  getById("dialogTitle").textContent = `${type === "BUY" ? "Buy" : "Sell"} ${stock.symbol}`;
+  getById("dialogInfo").textContent = `${stock.name} at ${money(stock.price)} · You can ${type === "BUY" ? "afford" : "sell"} up to ${maxQuantity()}`;
+  getById("confirmTrade").textContent = type === "BUY" ? "Buy shares" : "Sell shares";
+  getById("quantityInput").value = 1;
+  updateDialog();
+  tradeDialog.showModal();
+  getById("quantityInput").select();
 }
 
 function executeTrade() {
-  const qty = Number($("qtyInput").value);
+  const qty = Number(getById("quantityInput").value);
   const { type, stock } = trade;
   const total = qty * stock.price;
   let holding = user.holdings.find(h => h.symbol === stock.symbol);
@@ -171,35 +171,35 @@ function executeTrade() {
   user.transactions.push({ type, symbol: stock.symbol, quantity: qty, price: stock.price, total, date: new Date().toISOString() });
   Store.save(user);
   renderAll();
-  toast(`${type === "BUY" ? "Bought" : "Sold"} ${qty} share(s) of ${stock.symbol}.`);
+  showMessage(`${type === "BUY" ? "Bought" : "Sold"} ${qty} share(s) of ${stock.symbol}.`);
 }
 
-$("qtyInput").addEventListener("input", updateModal);
-$("cancelTrade").addEventListener("click", () => modal.close());
-$("tradeForm").addEventListener("submit", e => {
-  if ($("confirmTrade").disabled) return e.preventDefault();
+getById("quantityInput").addEventListener("input", updateDialog);
+getById("cancelTrade").addEventListener("click", () => tradeDialog.close());
+getById("tradeForm").addEventListener("submit", e => {
+  if (getById("confirmTrade").disabled) return e.preventDefault();
   executeTrade();
 });
 
-/* ---------- Toast, controls, live prices ---------- */
-let toastTimer;
-function toast(text, isError) {
-  const el = $("toast");
+/* ---------- Pop-up message, controls, live prices ---------- */
+let messageTimer;
+function showMessage(text, isError) {
+  const el = getById("popupMessage");
   el.textContent = text;
-  el.className = "toast show" + (isError ? " error" : "");
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => el.classList.remove("show"), 3000);
+  el.className = "popup-message show" + (isError ? " error" : "");
+  clearTimeout(messageTimer);
+  messageTimer = setTimeout(() => el.classList.remove("show"), 3000);
 }
 
-$("logoutButton").addEventListener("click", () => { Store.logout(); window.location.href = "index.html"; });
-$("resetButton").addEventListener("click", () => {
+getById("logoutButton").addEventListener("click", () => { Store.logout(); window.location.href = "index.html"; });
+getById("resetButton").addEventListener("click", () => {
   if (!confirm("Reset your account to ₹1,00,000 and clear all holdings and history?")) return;
   user.cashBalance = START_CASH; user.holdings = []; user.transactions = [];
   Store.save(user);
   renderAll();
-  toast("Account reset.");
+  showMessage("Account reset.");
 });
-$("stockSearch").addEventListener("input", renderStocks);
+getById("stockSearch").addEventListener("input", renderStocks);
 
 setInterval(() => {
   stocks.forEach(s => {
@@ -207,7 +207,7 @@ setInterval(() => {
     s.price = Math.max(1, Math.round(s.price * move));
   });
   renderSummary(); renderHoldings();
-  if (!modal.open && document.activeElement !== $("stockSearch")) renderStocks();
+  if (!tradeDialog.open && document.activeElement !== getById("stockSearch")) renderStocks();
 }, 4000);
 
 renderAll();

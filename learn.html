@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TradeSphere – Learn</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header-bar">
+    <img src="Logo.jpg" alt="TradeSphere" class="header-logo">
+    <div class="header-right">
+      <nav class="menu" aria-label="Main">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="dashboard.html#market">Market</a>
+        <a href="dashboard.html#holdings">Holdings</a>
+        <a href="dashboard.html#history">History</a>
+        <a href="learn.html" class="active" aria-current="page">Learn</a>
+      </nav>
+      <span id="welcomeUser"></span>
+      <button class="button button-red" id="logoutButton">Log out</button>
+    </div>
+  </header>
+
+  <main class="page-content">
+    <div class="page-heading">
+      <div>
+        <h1>Learn</h1>
+        <p>Trading basics, practice tasks, and a quick quiz.</p>
+      </div>
+      <span class="mode-badge">Practice mode</span>
+    </div>
+
+    <div class="learn-layout">
+      <div>
+        <section class="dashboard-section">
+          <div class="section-heading"><h2>Trading basics</h2></div>
+          <details open><summary>What is a stock?</summary><p>A stock is a small piece of ownership in a company. If the company does well, the price of your share usually rises. If it struggles, the price can fall.</p></details>
+          <details><summary>Buying and selling</summary><p>You buy a share at the current price and sell it later at the price then. If the selling price is higher than what you paid, you make a profit. If it's lower, you take a loss.</p></details>
+          <details><summary>What does "Today" mean in the market table?</summary><p>It's the percentage the price has moved since you opened the page. Green means it's up, red means it's down.</p></details>
+          <details><summary>Average cost</summary><p>If you buy the same stock at different prices, your average cost is the total you paid divided by the number of shares. Your profit or loss is measured against this number.</p></details>
+          <details><summary>Portfolio value</summary><p>Your portfolio value is your cash plus the current value of every stock you hold. It changes whenever prices move, even if you don't trade.</p></details>
+          <details><summary>Diversification</summary><p>Spreading money across several stocks means one bad stock hurts less. It's one of the simplest ways to reduce risk.</p></details>
+          <details><summary>This is practice only</summary><p>TradeSphere uses virtual money and simulated prices. Real markets are less predictable, so treat this as a place to learn, not a guide to real investing.</p></details>
+        </section>
+
+        <section class="dashboard-section">
+          <div class="section-heading"><h2>Quick quiz</h2></div>
+          <p class="progress-text" id="quizScore"></p>
+          <div id="quiz"></div>
+        </section>
+      </div>
+
+      <section class="dashboard-section">
+        <div class="section-heading"><h2>Practice tasks</h2></div>
+        <p class="progress-text" id="taskProgress"></p>
+        <ul class="task-list" id="taskList"></ul>
+        <a href="dashboard.html#market" class="button button-blue" style="display:inline-block;margin-top:14px;text-decoration:none">Go to market</a>
+      </section>
+    </div>
+  </main>
+
+  <script src="store.js"></script>
+  <script src="learn.js"></script>
+</body>
+</html>
