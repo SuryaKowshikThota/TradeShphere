@@ -21,7 +21,8 @@ TradeSphere/
 ├── index.html
 ├── dashboard.html
 ├── learn.html
-├── style.css
+├── login.css
+├── dashboard_learn.css
 ├── auth.js
 ├── dashboard.js
 ├── store.js
