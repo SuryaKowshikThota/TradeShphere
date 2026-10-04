@@ -9,18 +9,24 @@ const stocks = [
   { symbol: "NVDA", name: "NVIDIA Corporation", price: 11950 },
   { symbol: "AMZN", name: "Amazon.com Inc.", price: 15320 },
   { symbol: "GOOGL", name: "Alphabet Inc.", price: 13890 },
-  { symbol: "META", name: "Meta Platforms Inc.", price: 42150 },
-  { symbol: "GOLD" , name:"Gold Inc" , price : 17500}
+  { symbol: "META", name: "Meta Platforms Inc.", price: 42150 }
 ];
-stocks.forEach(s => { s.open = s.price; });
+/* Price history: 50 earlier prices, made by walking backwards from the current price. */
+stocks.forEach(s => {
+  s.history = [s.price];
+  for (let i = 1; i < 50; i++) {
+    const move = 1 + (Math.random() - 0.5) * 0.01;
+    s.history.unshift(Math.round(s.history[0] / move));
+  }
+  s.open = s.history[0];
+});
 
 const getById = id => document.getElementById(id);
 const find = symbol => stocks.find(s => s.symbol === symbol);
 const profitClass = n => (n > 0 ? "profit" : n < 0 ? "loss" : "");
 const sign = n => (n > 0 ? "+" : "");
 
-function row(cells) 
-{
+function row(cells) {
   const tr = document.createElement("tr");
   tr.innerHTML = cells;
   return tr;
@@ -62,11 +68,15 @@ function renderStocks() {
       <td class="align-right">${money(s.price)}</td>
       <td class="align-right ${profitClass(change)}">${sign(change)}${change.toFixed(2)}%</td>
       <td class="align-right">
+        <button class="button button-outline" data-act="CHART">Chart</button>
         <button class="button button-buy" data-act="BUY">Buy</button>
         <button class="button button-sell" data-act="SELL">Sell</button>
       </td>`);
     tr.querySelectorAll("button").forEach(b =>
-      b.addEventListener("click", () => openTrade(b.dataset.act, s)));
+      b.addEventListener("click", () => {
+        if (b.dataset.act === "CHART") showChartFor(s.symbol);
+        else openTrade(b.dataset.act, s);
+      }));
     body.appendChild(tr);
   });
 }
@@ -203,13 +213,119 @@ getById("resetButton").addEventListener("click", () => {
 });
 getById("stockSearch").addEventListener("input", renderStocks);
 
+/* ---------- Price chart (drawn on a canvas) ---------- */
+let chartSymbol = stocks[0].symbol;
+let hoverIndex = null;                       // which point the mouse is over
+
+const chartCanvas = getById("priceChart");
+const chartSelect = getById("chartStock");
+stocks.forEach(s => chartSelect.add(new Option(s.name + " (" + s.symbol + ")", s.symbol)));
+
+function drawChart() {
+  const s = find(chartSymbol);
+  const data = s.history;
+  const c = chartCanvas.getContext("2d");
+  const w = chartCanvas.width, h = chartCanvas.height;
+  const left = 80, right = 20, top = 20, bottom = 34;
+
+  let min = Math.min(...data), max = Math.max(...data);
+  if (min === max) { min -= 1; max += 1; }
+  const space = (max - min) * 0.1;
+  min -= space; max += space;
+
+  const x = i => left + (i / (data.length - 1)) * (w - left - right);
+  const y = p => top + (1 - (p - min) / (max - min)) * (h - top - bottom);
+  const isUp = data[data.length - 1] >= data[0];
+  const lineColor = isUp ? "#16a34a" : "#dc2626";
+
+  c.clearRect(0, 0, w, h);
+  c.font = "14px Arial";
+
+  // grid lines with price labels
+  for (let i = 0; i <= 4; i++) {
+    const price = min + ((max - min) * i) / 4;
+    c.strokeStyle = "#e2e8f0"; c.lineWidth = 1;
+    c.beginPath(); c.moveTo(left, y(price)); c.lineTo(w - right, y(price)); c.stroke();
+    c.fillStyle = "#64748b";
+    c.fillText(Math.round(price).toLocaleString("en-IN"), 6, y(price) + 5);
+  }
+
+  // coloured area under the line
+  c.beginPath();
+  c.moveTo(x(0), h - bottom);
+  data.forEach((p, i) => c.lineTo(x(i), y(p)));
+  c.lineTo(x(data.length - 1), h - bottom);
+  c.closePath();
+  c.fillStyle = isUp ? "#dcfce7" : "#fee2e2";
+  c.fill();
+
+  // the price line
+  c.beginPath();
+  data.forEach((p, i) => (i === 0 ? c.moveTo(x(i), y(p)) : c.lineTo(x(i), y(p))));
+  c.strokeStyle = lineColor; c.lineWidth = 3; c.stroke();
+
+  // dot on the latest price
+  c.beginPath();
+  c.arc(x(data.length - 1), y(s.price), 5, 0, Math.PI * 2);
+  c.fillStyle = lineColor; c.fill();
+
+  c.fillStyle = "#64748b";
+  c.fillText("Earlier", left, h - 10);
+  c.fillText("Now", w - right - 30, h - 10);
+
+  // mouse crosshair and price label
+  if (hoverIndex !== null) {
+    const hx = x(hoverIndex), hy = y(data[hoverIndex]);
+    c.strokeStyle = "#94a3b8"; c.lineWidth = 1;
+    c.beginPath(); c.moveTo(hx, top); c.lineTo(hx, h - bottom); c.stroke();
+    c.beginPath(); c.arc(hx, hy, 5, 0, Math.PI * 2); c.fillStyle = "#0b1a4a"; c.fill();
+    const label = money(data[hoverIndex]);
+    const boxX = hx > w / 2 ? hx - 130 : hx + 10;
+    c.fillStyle = "#0b1a4a"; c.fillRect(boxX, top, 120, 28);
+    c.fillStyle = "#ffffff"; c.fillText(label, boxX + 10, top + 19);
+  }
+}
+
+function updateChart() {
+  const s = find(chartSymbol);
+  const change = ((s.price - s.history[0]) / s.history[0]) * 100;
+  getById("chartPrice").textContent = s.name + "  " + money(s.price);
+  getById("chartChange").textContent = sign(change) + change.toFixed(2) + "%";
+  getById("chartChange").className = profitClass(change);
+  getById("chartRange").textContent = "High " + money(Math.max(...s.history)) + "  ·  Low " + money(Math.min(...s.history));
+  chartSelect.value = chartSymbol;
+  drawChart();
+}
+
+function showChartFor(symbol) {
+  chartSymbol = symbol;
+  hoverIndex = null;
+  updateChart();
+  getById("chart").scrollIntoView();
+}
+
+chartSelect.addEventListener("change", () => showChartFor(chartSelect.value));
+chartCanvas.addEventListener("mousemove", e => {
+  const box = chartCanvas.getBoundingClientRect();
+  const mouseX = (e.clientX - box.left) * (chartCanvas.width / box.width);
+  const count = find(chartSymbol).history.length;
+  const index = Math.round(((mouseX - 80) / (chartCanvas.width - 100)) * (count - 1));
+  hoverIndex = Math.min(count - 1, Math.max(0, index));
+  drawChart();
+});
+chartCanvas.addEventListener("mouseleave", () => { hoverIndex = null; drawChart(); });
+
+/* ---------- Live price updates every 4 seconds ---------- */
 setInterval(() => {
   stocks.forEach(s => {
     const move = 1 + (Math.random() - 0.5) * 0.01;   // up to ±0.5% per tick
     s.price = Math.max(1, Math.round(s.price * move));
+    s.history.push(s.price);
+    if (s.history.length > 50) s.history.shift();     // keep the last 50 points
   });
-  renderSummary(); renderHoldings();
+  renderSummary(); renderHoldings(); updateChart();
   if (!tradeDialog.open && document.activeElement !== getById("stockSearch")) renderStocks();
 }, 4000);
 
 renderAll();
+updateChart();

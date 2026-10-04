@@ -1,3 +1,5 @@
+/* DASHBOARD AND LEARN PAGE STYLES (used by dashboard.html and learn.html) */
+
 * {
   margin: 0;
   padding: 0;
@@ -120,100 +122,6 @@ label {
   color: #dc2626;
   font-size: 13px;
   text-align: center;
-}
-
-.text-button {
-  display: block;
-  margin: 6px auto 0;
-  border: 0;
-  background: none;
-  color: #2563eb;
-  font: inherit;
-  font-size: 13px;
-  cursor: pointer;
-}
-
-.login-page {
-  background: linear-gradient(135deg, #0b1a4a, #1e6b5c);
-}
-
-.login-layout {
-  min-height: 100vh;
-  display: grid;
-  grid-template-columns: 1fr 420px;
-  gap: 60px;
-  align-items: center;
-  max-width: 1050px;
-  margin: auto;
-  padding: 30px 24px;
-}
-
-.login-intro {
-  color: #fff;
-}
-
-.login-logo {
-  width: 100%;
-  max-width: 360px;
-  height: 150px;
-  object-fit: cover;
-  object-position: left center;
-  border-radius: 14px;
-  margin-bottom: 28px;
-}
-
-.login-intro h1 {
-  max-width: 520px;
-  font-size: 38px;
-  line-height: 1.15;
-}
-
-.login-intro p {
-  max-width: 460px;
-  margin-top: 16px;
-  color: #cbd5e1;
-  font-size: 17px;
-}
-
-.login-box {
-  padding: 28px 30px 30px;
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
-}
-
-.login-box .button-blue {
-  width: 100%;
-  margin-top: 20px;
-  padding: 13px;
-  font-size: 15px;
-}
-
-.form-tabs {
-  display: flex;
-  gap: 4px;
-  padding: 4px;
-  background: #f1f5f9;
-  border-radius: 10px;
-}
-
-.form-tab {
-  flex: 1;
-  padding: 9px;
-  border: 0;
-  border-radius: 8px;
-  background: none;
-  font: inherit;
-  font-size: 14px;
-  font-weight: 600;
-  color: #64748b;
-  cursor: pointer;
-}
-
-.form-tab.active {
-  background: #fff;
-  color: #0b1a4a;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
 }
 
 .header-bar {
@@ -613,20 +521,6 @@ details p {
 }
 
 @media (max-width: 860px) {
-  .login-layout {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-
-  .login-intro h1 {
-    font-size: 28px;
-  }
-
-  .login-logo {
-    height: 110px;
-    max-width: 280px;
-  }
-
   .summary-cards {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -696,4 +590,34 @@ details p {
   .popup-message {
     transition: none;
   }
+}
+
+/* Price chart */
+.chart-info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.chart-info strong {
+  font-size: 22px;
+  color: #0b1a4a;
+}
+
+#priceChart {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+#chartStock {
+  padding: 9px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #fff;
+  font: inherit;
+  font-size: 14px;
 }
