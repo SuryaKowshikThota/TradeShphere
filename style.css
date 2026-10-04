@@ -697,3 +697,33 @@ details p {
     transition: none;
   }
 }
+
+/* Price chart */
+.chart-info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.chart-info strong {
+  font-size: 22px;
+  color: #0b1a4a;
+}
+
+#priceChart {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+#chartStock {
+  padding: 9px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #fff;
+  font: inherit;
+  font-size: 14px;
+}

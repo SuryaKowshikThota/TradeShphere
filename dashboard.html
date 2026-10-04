@@ -12,6 +12,7 @@
     <div class="header-right">
       <nav class="menu" aria-label="Main">
         <a href="dashboard.html" class="active" aria-current="page">Dashboard</a>
+        <a href="dashboard.html#chart">Chart</a>
         <a href="dashboard.html#market">Market</a>
         <a href="dashboard.html#holdings">Holdings</a>
         <a href="dashboard.html#history">History</a>
@@ -36,6 +37,20 @@
       <div class="summary-card"><p>Available cash</p><h2 id="cashBalance">₹0</h2><small>Ready to invest</small></div>
       <div class="summary-card"><p>Invested value</p><h2 id="investedValue">₹0</h2><small id="stockCount">0 positions</small></div>
       <div class="summary-card"><p>Total profit / loss</p><h2 id="totalProfitLoss">₹0</h2><small id="totalProfitLossPercent">0%</small></div>
+    </section>
+
+    <section class="dashboard-section" id="chart">
+      <div class="section-heading">
+        <h2>Price chart</h2>
+        <select id="chartStock" aria-label="Choose a stock"></select>
+      </div>
+      <div class="chart-info">
+        <strong id="chartPrice"></strong>
+        <span id="chartChange"></span>
+        <span id="chartRange"></span>
+      </div>
+      <canvas id="priceChart" width="1000" height="340"></canvas>
+      <small>Each point is one price update (every 4 seconds). Move the mouse over the chart to see a price.</small>
     </section>
 
     <section class="dashboard-section" id="market">
