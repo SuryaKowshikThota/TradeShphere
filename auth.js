@@ -30,11 +30,7 @@ tabs.forEach(tab => {
 loginForm.addEventListener("submit", event => {
   event.preventDefault();
 
-  const email = document
-    .getElementById("loginEmail")
-    .value
-    .trim()
-    .toLowerCase();
+  const email = document.getElementById("loginEmail").value.trim().toLowerCase();
 
   const password = document.getElementById("loginPassword").value;
   const user = Store.users()[email];
@@ -53,11 +49,7 @@ registerForm.addEventListener("submit", event => {
 
   const name = document.getElementById("registerName").value.trim();
 
-  const email = document
-    .getElementById("registerEmail")
-    .value
-    .trim()
-    .toLowerCase();
+  const email = document.getElementById("registerEmail").value.trim().toLowerCase();
 
   const password = document.getElementById("registerPassword").value;
 
