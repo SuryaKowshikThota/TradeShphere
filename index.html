@@ -38,6 +38,7 @@
 
         <button type="submit" class="button button-blue">Log in</button>
         <p class="error-message" id="loginMessage"></p>
+        <button type="button" class="text-button" id="forgotButton">Forgot password?</button>
         <button type="button" class="text-button" id="demoButton">Use the demo account</button>
       </form>
 
@@ -54,6 +55,38 @@
 
         <button type="submit" class="button button-blue">Create account</button>
         <p class="error-message" id="registerMessage"></p>
+      </form>
+
+      <!-- Forgot password, step 1: ask for the email -->
+      <form id="forgotForm" hidden>
+        <h2 class="form-title">Reset your password</h2>
+        <p class="form-help">Enter the email of your account and we will give you a reset code.</p>
+
+        <label for="forgotEmail">Email</label>
+        <input type="email" id="forgotEmail" required>
+
+        <button type="submit" class="button button-blue">Get reset code</button>
+        <p class="error-message" id="forgotMessage"></p>
+        <button type="button" class="text-button" id="backFromForgot">Back to log in</button>
+      </form>
+
+      <!-- Forgot password, step 2: enter the code and a new password -->
+      <form id="resetForm" hidden>
+        <h2 class="form-title">Enter the reset code</h2>
+        <p class="form-help" id="codeHint"></p>
+
+        <label for="resetCode">Reset code</label>
+        <input type="text" id="resetCode" maxlength="6" required>
+
+        <label for="newPassword">New password</label>
+        <input type="password" id="newPassword" minlength="6" required>
+
+        <label for="confirmPassword">Confirm new password</label>
+        <input type="password" id="confirmPassword" minlength="6" required>
+
+        <button type="submit" class="button button-blue">Change password</button>
+        <p class="error-message" id="resetMessage"></p>
+        <button type="button" class="text-button" id="backFromReset">Back to log in</button>
       </form>
 
     </div>
