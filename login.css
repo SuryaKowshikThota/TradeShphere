@@ -167,7 +167,7 @@ label {
 }
 
 .form-tab.active {
-  background: #fff;
+  background: hsl(198, 90%, 65%);
   color: #0b1a4a;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
 }
